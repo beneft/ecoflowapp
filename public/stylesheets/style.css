@@ -1,0 +1,44 @@
+body {
+  padding-top: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+#summary {
+  background-color: darkgrey;
+}
+
+.piecharts {
+  max-width: 400px;
+  max-height: 400px;
+  min-height: 300px;
+  min-width: 300px;
+}
+
+#selectPot {
+  max-width: 200px;
+}
+
+.btn-rounded-left {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.btn-rounded-right {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}

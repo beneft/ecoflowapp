@@ -1,0 +1,126 @@
+extends layout
+
+block content
+  .container
+    .d-flex.justify-content-end.gap-1
+          if isAuthenticated
+            button.btn.btn-primary.my-3#btn-logout(type="button")
+              span
+                | Logout
+          else
+            button.btn.btn-primary.my-3.btn-rounded-left#btn-login(type="button", data-bs-toggle="modal", data-bs-target="#loginModal")
+              span
+                | Login
+            button.btn.btn-primary.my-3.btn-rounded-right#btn-register(type="button", data-bs-toggle="modal", data-bs-target="#registerModal")
+              span
+                | Register
+
+    h1.mt-5 EcoFlow Charts
+
+    block modals
+      include modals.pug
+
+
+    if isAuthenticated
+        .mx-auto.text-center
+            button.btn.btn-primary.my-3#btn-menu(type="button", data-bs-toggle="modal", data-bs-target="#menu")
+                    span
+                      | Menu
+                      i.fa.fa-gear.ms-1
+
+        .mx-auto.text-center
+            label(for='selectPot' class='form-label') Select a pot
+            select.form-select.mx-auto#selectPot(name = 'selectPot')
+
+
+        form#dateform(method='get' action='/')
+          .mb-3
+            label(for='day' class='form-label') Select Day
+            input#day(type='date' name='day' class='form-control' required)
+          button(type='submit' class='btn btn-primary') Show Data
+          label(for='live' class='form-label ms-4 me-2') Live update
+          input#live(type= 'checkbox' name= 'live' class= 'form-checkbox' checked= isAuthenticated ? 'checked' : '')
+        .mt-3
+          label(for='daterange' class='form-label') Select Date Range
+          input#daterange(type='text' name='daterange' class='form-control')
+
+        .mt-5.p-3.rounded.text-center#summary
+            h3 Summary
+            .d-flex.flex-wrap.justify-content-around
+                .d-flex.flex-column
+                    h3#avgTemperature
+                    span#byforecastTemperature
+                    h4 Average temperature
+                    i.fa.fa-temperature-half.fa-2x
+                .d-flex.flex-column
+                    h3#avgHumidity
+                    span#byforecastHumidity
+                    h4 Average humidity
+                    i.fa.fa-droplet.fa-2x
+                .d-flex.flex-column
+                    h3#avgLightLevel
+                    h4 Average light level
+                    i.fa.fa-lightbulb.fa-2x
+            .mx-auto.mt-4
+                .d-flex.flex-column
+                    h4 Conditions are estimated as
+                    h3#avgConditions
+                    i.fa.fa-leaf.fa-2x
+
+        .mt-5
+          h2#dataTitle(class='font-italic')
+          .row
+            .col-xl-6.mb-3.mx-auto
+                canvas#temperatureChart
+            .col-xl-6.mb-3.mx-auto
+                canvas#humidityChart
+            .col-xl-6.mb-3.mx-auto
+                canvas#lightLevelChart
+          hr
+          .row
+            .col-xl-6.mb-3.mx-auto
+               canvas#temperaturePieChart.piecharts
+            .col-xl-6.mb-3.mx-auto
+               canvas#humidityPieChart.piecharts
+            .col-xl-6.mb-3.mx-auto
+               canvas#lightLevelPieChart.piecharts
+          hr
+          .row
+            .col-xl-6.mb-3.mx-auto
+               #temperatureHeatmap
+            .col-xl-6.mb-3.mx-auto
+               #humidityHeatmap
+            .col-xl-6.mb-3.mx-auto
+               #lightLevelHeatmap
+          hr
+          .row
+            .col-xl-6.mb-3.mx-auto
+              canvas#temperatureBarChart
+            .col-xl-6.mb-3.mx-auto
+              canvas#humidityBarChart
+            .col-xl-6.mb-3.mx-auto
+              canvas#lightLevelBarChart
+          hr
+          .row
+            .col-xl-6.mb-3.mx-auto
+              canvas#temperatureCandlestickChart
+            .col-xl-6.mb-3.mx-auto
+              canvas#humidityCandlestickChart
+            .col-xl-6.mb-3.mx-auto
+              canvas#lightLevelCandlestickChart
+          h2#noDataMessage(class='font-italic' style='display:none;') No data found at this day.
+
+    script(src='/javascripts/charts.js')
+    script(src='/javascripts/menu.js')
+    script(src='/javascripts/auth.js')
+    script.
+          $(function() {
+            $('#daterange').daterangepicker({
+              timePicker: true,
+              startDate: moment().startOf('hour'),
+                  endDate: moment().startOf('hour').add(24, 'hour'),
+                  locale: {
+                    format: 'M/DD hh:mm A'
+                  }
+            });
+          });

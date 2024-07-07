@@ -1,0 +1,90 @@
+
+
+
+.modal.fade#menu(tabindex="-1", role="dialog", aria-labelledby="menuLabel", aria-hidden="true")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title#menuLabel Menu
+        button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+          span(aria-hidden="true")
+      .modal-body
+        ul.nav.nav-tabs(role="tablist")
+           li.nav-item
+              a.nav-link.active(href="#wateringTab", data-bs-toggle="tab") Automation
+           li.nav-item
+              a.nav-link(href="#thresholdsTab", data-bs-toggle="tab") Alert Thresholds
+           li.nav-item
+              a.nav-link(href="#potsTab", data-bs-toggle="tab") Pots Management
+        .tab-content.pt-3
+           .tab-pane.fade.show.active#wateringTab(role="tabpanel")
+              .mb-3
+                 label(for='watering' class='form-label') Watering
+                 select#watering.form-select
+                    option(value='water-never', selected) Never
+                    option(value='water-30m') 30 minute interval
+                    option(value='water-1h') 1 hour interval
+                    option(value='water-5h') 5 hour interval
+                    option(value='water-12h') 12 hour interval
+                    option(value='water-24h') 24 hour interval
+                    option(value='water-3d') 3 days interval
+           .tab-pane.fade#thresholdsTab(role="tabpanel")
+              .mb-3
+                 label(for='thresholdTemperature' class='form-label') Threshold for Temperature (lower bound)
+                 input#thresholdTemperature.form-control(type='number' min='0')
+              .mb-3
+                 label(for='thresholdHumidity' class='form-label') Threshold for Humidity (lower bound)
+                 input#thresholdHumidity.form-control(type='number' min='0')
+              .mb-3
+                 label(for='thresholdLightLevel' class='form-label') Threshold for Light Level (lower bound)
+                 input#thresholdLightLevel.form-control(type='number' min='0')
+           .tab-pane.fade#potsTab(role="tabpanel")
+              .mb-3
+                 label(for='potName' class='form-label') Pot Name
+                 input#potName.form-control(type='text')
+                 button#addPot.btn.btn-secondary.mt-1(type='button') Add Pot
+              ul#potList.list-group.mt-3
+                 // List of pots will be dynamically populated here
+      .modal-footer
+        button.btn.btn-secondary(type="button", data-bs-dismiss="modal") Close
+        button.btn.btn-primary#menuApply(type="button",data-bs-dismiss="modal") Save changes
+
+
+.modal.fade#loginModal(tabindex="-1", role="dialog", aria-labelledby="loginLabel", aria-hidden="true")
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h5.modal-title#loginLabel Log in
+            button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+              span(aria-hidden="true")
+          .modal-body
+            form#loginForm
+                      .mb-3
+                        label(for="loginUsername").form-label Username
+                        input#loginUsername.form-control(type="text", name="username", required)
+                      .mb-3
+                        label(for="loginPassword").form-label Password
+                        input#loginPassword.form-control(type="password", name="password", required)
+          .modal-footer
+            button.btn.btn-primary#loginApply(type="button",data-bs-dismiss="modal") Log in
+
+.modal.fade#registerModal(tabindex="-1", role="dialog", aria-labelledby="registerLabel", aria-hidden="true")
+          .modal-dialog
+            .modal-content
+              .modal-header
+                h5.modal-title#registerLabel Create new account
+                button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                  span(aria-hidden="true")
+              .modal-body
+                  form#registerForm
+                            .mb-3
+                              label(for="registerUsername").form-label Username
+                              input#registerUsername.form-control(type="text", name="username", required)
+                            .mb-3
+                              label(for="registerEmail").form-label Email
+                              input#registerEmail.form-control(type="email", name="email", required)
+                            .mb-3
+                              label(for="registerPassword").form-label Password
+                              input#registerPassword.form-control(type="password", name="password", required)
+              .modal-footer
+                button.btn.btn-primary#registerApply(type="button",data-bs-dismiss="modal") Create account
